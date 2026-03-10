@@ -2,15 +2,15 @@ const {Router}= require("express");
 const userRoute= Router();
 
 
-userRoute.post('/user/signup', (request, response)=>{
+userRoute.post('/signup', (request, response)=>{
     response.send("Signup Successfully");
 })
 
-userRoute.post('/user/signin',(request, response)=>{
+userRoute.post('/signin',(request, response)=>{
     response.send("Sign Successful");
 })
 
-userRoute.get('/user/purchases',(request, response)=>{
+userRoute.get('/purchases',(request, response)=>{
     response.send("Purchased course list");
 })
 
