@@ -1,16 +1,19 @@
-function createUserRoutes(app){
-app.post('/user/signup', (request, response)=>{
+const {Router}= require("express");
+const userRoute= Router();
+
+
+userRoute.post('/user/signup', (request, response)=>{
     response.send("Signup Successfully");
 })
 
-app.post('/user/signin',(request, response)=>{
+userRoute.post('/user/signin',(request, response)=>{
     response.send("Sign Successful");
 })
 
-app.get('/user/purchases',(request, response)=>{
+userRoute.get('/user/purchases',(request, response)=>{
     response.send("Purchased course list");
 })
-}
+
 module.exports={
-    createUserRoutes: createUserRoutes
+    userRoute: userRoute
 }
