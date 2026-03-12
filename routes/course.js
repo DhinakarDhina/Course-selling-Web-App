@@ -1,7 +1,7 @@
 const Router = require("express");
 const courseRouter= Router();
 
-courseRouter.post('/purchase',(request,response)=>{
+courseRouter.post('/user/purchases',(request,response)=>{
     response.send("Course purchased successfully");
 })
 
