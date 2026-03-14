@@ -2,7 +2,7 @@ const Router = require("express");
 const courseRouter= Router();
 
 //Course purchase list
-courseRouter.post('/user/purchases',(request,response)=>{
+courseRouter.post('/purchases',(request,response)=>{
     response.send("Course purchased successfully");
 })
 
