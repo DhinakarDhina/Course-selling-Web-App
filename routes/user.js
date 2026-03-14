@@ -1,6 +1,8 @@
 const {Router}= require("express");
 const userRoute= Router();
 const {userModel} = require("../db");
+const jwt = require("jsonwebtoken");
+const JWT_USER_PASSWORD = "aladld123"
 
 // Signup from user
 userRoute.post('/signup', async(request, response)=>{
@@ -18,7 +20,6 @@ userRoute.post('/signup', async(request, response)=>{
             message:"Error"
         })
     }
-    
 
     response.json({
         message: "Signup Endpoint"
@@ -27,7 +28,31 @@ userRoute.post('/signup', async(request, response)=>{
 
 
 //Signin from user
-userRoute.post('/signin',(request, response)=>{
+userRoute.post('/signin', async (request, response)=>{
+    const{email, password}= request.body;
+
+    //TODO : ideally password should be hashed, and hence  you compare the user provided password and the database password
+
+    const user = await userModel.findOne({
+        email: email,
+        password: password
+    });
+    
+    if(user){
+        const token = jwt.sign({
+            id: user._id
+        }, JWT_USER_PASSWORD);
+
+        response.json({
+            token : token
+        })
+    }else{
+        response.status(403).json({
+            message: "Incorrect credentials"
+        })
+    }
+    
+
     response.json({
         message: "SignIn Endpoint"
     })
