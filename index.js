@@ -9,6 +9,7 @@ const app= express();
 const { userRoute}= require("./routes/user");
 const{courseRouter}= require("./routes/course");
 const {adminRouter}= require("./routes/admin");
+app.use(express.json());
 
 
 // Routes with version
