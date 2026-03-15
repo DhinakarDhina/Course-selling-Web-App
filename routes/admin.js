@@ -3,7 +3,7 @@ const adminRouter = Router();
 const {adminModel}= require("../db");
 const jwt = require("jsonwebtoken");
 const {JWT_ADMIN_PASSWORD}= require("../config");
-
+const {adminMiddleware} = require ("../middleware/admin");
 
 //bcrypt, zod, jsonwebtoken
 
@@ -61,21 +61,39 @@ adminRouter.post("/signIn",async(request, response)=>{
 })
 
 //Adding new course
-adminRouter.post("/course",(request, response)=>{
-    response.send("Adding new course endpoint");
+adminRouter.post("/course", adminMiddleware , async (request, response)=>{
+    const adminId = req.userId;
+
+    const {title, description, imageUrl , price}= request.body;
+
+    const course = await courseModel.create({
+        title: title,
+        description,: description 
+        imageUrl: imageUrl ,
+        price: price, 
+        creatorId: adminId
+
+    })
+
+    response.json({
+        message: "Course created",
+        courseId: course._id
+    })
 })
 
 //Updating the new course
 adminRouter.put("/course",(request, response)=>{
-    response.send("Updating course content endpoint");
+    response.json({
+        message: "Updating course Endpoint"
+    })
 })
 
 //Displaying all the course
 adminRouter.get("course/bulk",(request, response)=>{
-    response.send("Displaying all the course endpoint");
+    response.json({
+        message: "Displaying course Endpoint"
+    })
 })
-
-
 
 module.exports={
     adminRouter:adminRouter
