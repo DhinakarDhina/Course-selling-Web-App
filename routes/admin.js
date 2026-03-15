@@ -1,8 +1,8 @@
 const {Router}= require("express");
 const adminRouter = Router();
 const {adminModel}= require("../db");
-const JWT_ADMIN_PASSWORD = "123ldl2345";
 const jwt = require("jsonwebtoken");
+const {JWT_ADMIN_PASSWORD}= require("../config");
 
 
 //bcrypt, zod, jsonwebtoken
