@@ -1,7 +1,9 @@
 const {Router}= require("express");
 const userRoute= Router();
-const {userModel} = require("../db");
+const {userModel, purchaseModel} = require("../db");
 const jwt = require("jsonwebtoken");
+const {userMiddleware} = require ("../middleware/user");
+
 const {JWT_USER_PASSWORD}= require("../config");
 
 // Signup from user
@@ -59,9 +61,13 @@ userRoute.post('/signin', async (request, response)=>{
 })
 
 //Purchase course list
-userRoute.get('/purchases',(request, response)=>{
+userRoute.get('/purchases' ,userMiddleware,async (request, response)=>{
+    const userId = request.userId
+    const purchases = await purchaseModel.find({
+        userId,
+    })
     response.json({
-        message: "Purchased course list"
+        purchases
     })
 })
 
